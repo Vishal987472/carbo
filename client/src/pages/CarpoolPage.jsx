@@ -11,6 +11,7 @@ const CarpoolPage = () => {
     seatsAvailable: "",
   });
 
+  
   const [joinRide, setJoinRide] = useState({
     startFrom: "",
     destination: "",
