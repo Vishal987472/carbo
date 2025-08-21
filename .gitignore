@@ -1,0 +1,46 @@
+
+# =========================
+# Node modules
+# =========================
+/backend/node_modules/
+/client/node_modules/
+
+# =========================
+# Environment / secrets
+# =========================
+/backend/.env
+/client/.env
+
+# =========================
+# Build outputs / cache
+# =========================
+/client/dist/
+/client/build/
+/client/.cache/
+/backend/dist/
+/backend/build/
+
+# =========================
+# Logs
+# =========================
+npm-debug.log*
+yarn-debug.log*
+
+# =========================
+# OS / IDE files
+# =========================
+.vscode/
+.DS_Store
+Thumbs.db
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# =========================
+# Misc
+# =========================
+*.tgz
+*.lock
+*.log
