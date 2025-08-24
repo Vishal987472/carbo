@@ -16,12 +16,6 @@ const TransportationForm = () => {
           placeholder="Fuel efficiency (km/l)"
           className="p-2 rounded bg-gray-700 border border-gray-600"
         />
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Calculate
-        </button>
       </form>
     </div>
   );

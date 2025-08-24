@@ -33,9 +33,9 @@ const BuildingMaintenanceForm = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
         >
-          Save
+          Calculate
         </button>
       </form>
     </div>

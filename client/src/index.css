@@ -26,6 +26,15 @@ body {
   display: flex;
   flex-direction: column;
 }
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;     /* Firefox */
+}
 
 /* Highlight color span */
 .highlight {

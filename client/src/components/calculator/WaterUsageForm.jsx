@@ -31,12 +31,6 @@ const WaterUsageForm = () => {
             className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
           />
         </div>
-        <button
-          type="submit"
-          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
-        >
-          Save
-        </button>
       </form>
     </div>
   );

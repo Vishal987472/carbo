@@ -11,6 +11,7 @@
     import chatRoutes from "./routes/chatRoutes.js";
     import carpoolRoutes from "./routes/carpoolRoutes.js";
     import ecoRoutes from "./routes/ecocenter.js";
+    import liveRoutes from "./routes/live.js";
 
 
     dotenv.config();
@@ -37,6 +38,7 @@
     app.use("/chat", chatRoutes);
     app.use("/carpool", carpoolRoutes);
     app.use("/ecocenter", ecoRoutes);
+    app.use("/live", liveRoutes);
 
     app.get("/", (req, res) => {
     res.send("API is running");
