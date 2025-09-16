@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaLeaf } from "react-icons/fa";
+import axios from "axios";
 
 export default function AuthPage({ onLogin }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -7,9 +8,7 @@ export default function AuthPage({ onLogin }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,30 +21,15 @@ export default function AuthPage({ onLogin }) {
 
     try {
       setLoading(true);
+      const url = `/api/auth/${isLogin ? "login" : "register"}`;
+      const res = await axios.post(url, formData);
 
-      const res = await fetch(
-        `http://localhost:3001/auth/${isLogin ? "login" : "register"}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include", // 🔹 needed for cookies
-          body: JSON.stringify(formData),
-        }
-      );
+      // Save token in sessionStorage
+      sessionStorage.setItem("token", res.data.token);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Something went wrong");
-      }
-
-      // Save only user info (token is in cookie now)
-      localStorage.setItem("user", JSON.stringify(data));
-
-      onLogin(); // trigger parent login handler
-
+      onLogin(res.data);
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -54,23 +38,16 @@ export default function AuthPage({ onLogin }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0b1623] to-[#0e1d2b] text-white">
       <div className="bg-[#1b263b] p-8 rounded-2xl shadow-lg w-full max-w-md">
-        {/* Logo & Title */}
         <div className="flex flex-col items-center mb-6">
           <FaLeaf className="text-green-400 text-4xl mb-2" />
-          <h1 className="text-2xl font-bold">
-            {isLogin ? "Welcome Back" : "Create Account"}
-          </h1>
+          <h1 className="text-2xl font-bold">{isLogin ? "Welcome Back" : "Create Account"}</h1>
           <p className="text-gray-400 text-sm mt-1">
-            {isLogin
-              ? "Login to track your carbon footprint"
-              : "Sign up to start your eco journey"}
+            {isLogin ? "Login to track your carbon footprint" : "Sign up to start your eco journey"}
           </p>
         </div>
 
-        {/* Error */}
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
             <input
@@ -108,13 +85,9 @@ export default function AuthPage({ onLogin }) {
           </button>
         </form>
 
-        {/* Switch */}
         <p className="text-center text-gray-400 mt-4 text-sm">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-green-400 hover:underline"
-          >
+          <button onClick={() => setIsLogin(!isLogin)} className="text-green-400 hover:underline">
             {isLogin ? "Sign up" : "Login"}
           </button>
         </p>

@@ -12,6 +12,7 @@ import EcocenterPage from "./pages/EcocenterPage";
 import CarpoolPage from "./pages/CarpoolPage";
 import ChatbotPage from "./pages/ChatbotPage";
 import DashboardPage from "./pages/DashboardPage";
+import ResultPage from "./pages/ResultPage";
 
 // Layout
 import Layout from "./components/Layout";
@@ -60,6 +61,7 @@ function App() {
           <Route path="carpool" element={<CarpoolPage />} />
           <Route path="chatbot" element={<ChatbotPage />} />
           <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="results" element={<ResultPage />} />
 
           {/* Catch-all inside logged in */}
           <Route path="*" element={<Navigate to="/home" replace />} />

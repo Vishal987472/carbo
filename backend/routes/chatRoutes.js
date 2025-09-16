@@ -2,7 +2,6 @@ import express from "express";
 import fetch from "node-fetch";
 
 const router = express.Router();
-const GEMINI_API_KEY = "AIzaSyDtMVE0WEmtnXgtijY3fX03eN9BVUp6zHw"; // or from process.env
 
 router.post("/", async (req, res) => {
   try {
@@ -28,7 +27,7 @@ User question: "${message}"
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-goog-api-key": GEMINI_API_KEY,
+          "X-goog-api-key": process.env.GEMINI_API_KEY,
         },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],

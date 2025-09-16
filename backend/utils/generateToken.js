@@ -1,14 +1,18 @@
 import jwt from "jsonwebtoken";
 
 const generateToken = (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
+  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: "1h", // token itself expires after 1 hour
+  });
 
   res.cookie("jwt", token, {
-    httpOnly: true,        // can't access via JS
-    secure: process.env.NODE_ENV === "production", // send only over HTTPS in prod
-    sameSite: "strict",    // prevents CSRF
-    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    httpOnly: true,
+    secure: false, // true in production with HTTPS
+    sameSite: "lax", // or "none" if frontend and backend on diff domains
+    // ❌ no maxAge here
+    // ❌ no expires here
   });
+  return token;
 };
 
 export default generateToken;

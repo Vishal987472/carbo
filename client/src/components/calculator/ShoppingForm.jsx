@@ -1,39 +1,30 @@
-// src/components/calculator/ShoppingOnlineForm.jsx
-
+// src/components/calculator/ShoppingForm.jsx
 import React from "react";
 
-const ShoppingOnlineForm = () => {
+const ShoppingForm = ({ data, onChange }) => {
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Shopping & Online Purchases</h2>
-      <form className="space-y-4">
-        <div>
-          <label className="block mb-1">Clothing items bought per month</label>
-          <input
-            type="number"
-            name="clothingItems"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Electronics purchased per month</label>
-          <input
-            type="number"
-            name="electronics"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Online orders placed per month</label>
-          <input
-            type="number"
-            name="onlineOrders"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-      </form>
+    <div className="p-4 bg-gray-800 rounded-xl shadow-md text-white">
+      <h3 className="text-lg font-bold mb-4">Shopping & Online Purchases</h3>
+
+      <div className="grid gap-4">
+        <input
+          type="number"
+          placeholder="Clothes Bought (per month)"
+          value={data.clothes || ""}
+          onChange={(e) => onChange("clothes", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+
+        <input
+          type="number"
+          placeholder="Electronics Bought (per year)"
+          value={data.electronics || ""}
+          onChange={(e) => onChange("electronics", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+      </div>
     </div>
   );
 };
 
-export default ShoppingOnlineForm;
+export default ShoppingForm;

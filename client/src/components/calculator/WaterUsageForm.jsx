@@ -1,37 +1,28 @@
 // src/components/calculator/WaterUsageForm.jsx
-
 import React from "react";
 
-const WaterUsageForm = () => {
+const WaterUsageForm = ({ data, onChange }) => {
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Water Usage</h2>
-      <form className="space-y-4">
-        <div>
-          <label className="block mb-1">Daily Water Usage (liters)</label>
-          <input
-            type="number"
-            name="dailyWaterUsage"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Baths per week</label>
-          <input
-            type="number"
-            name="bathsPerWeek"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Laundry Loads per week</label>
-          <input
-            type="number"
-            name="laundryLoads"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-      </form>
+    <div className="p-4 bg-gray-800 rounded-xl shadow-md text-white">
+      <h3 className="text-lg font-bold mb-4">Water Usage</h3>
+
+      <div className="grid gap-4">
+        <input
+          type="number"
+          placeholder="Daily Showers (minutes)"
+          value={data.showers || ""}
+          onChange={(e) => onChange("showers", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+
+        <input
+          type="number"
+          placeholder="Laundry Loads (per week)"
+          value={data.laundry || ""}
+          onChange={(e) => onChange("laundry", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+      </div>
     </div>
   );
 };

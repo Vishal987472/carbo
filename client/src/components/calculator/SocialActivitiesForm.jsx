@@ -1,37 +1,28 @@
 // src/components/calculator/SocialActivitiesForm.jsx
-
 import React from "react";
 
-const SocialActivitiesForm = () => {
+const SocialActivitiesForm = ({ data, onChange }) => {
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Social Activities</h2>
-      <form className="space-y-4">
-        <div>
-          <label className="block mb-1">Events attended per month</label>
-          <input
-            type="number"
-            name="eventsPerMonth"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Average distance traveled for events (km)</label>
-          <input
-            type="number"
-            name="eventDistance"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">Meals eaten out per month</label>
-          <input
-            type="number"
-            name="mealsOut"
-            className="w-full p-2 bg-gray-800 border border-gray-700 rounded"
-          />
-        </div>
-      </form>
+    <div className="p-4 bg-gray-800 rounded-xl shadow-md text-white">
+      <h3 className="text-lg font-bold mb-4">Social Activities</h3>
+
+      <div className="grid gap-4">
+        <input
+          type="number"
+          placeholder="Events Attended (per month)"
+          value={data.events || ""}
+          onChange={(e) => onChange("events", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+
+        <input
+          type="number"
+          placeholder="Trips Taken (per year)"
+          value={data.trips || ""}
+          onChange={(e) => onChange("trips", e.target.value)}
+          className="border p-2 rounded w-full bg-gray-900 text-white"
+        />
+      </div>
     </div>
   );
 };

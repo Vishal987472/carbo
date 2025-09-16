@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const navLinks = [
   { path: "/", label: "Home", icon: "fa-home" },
@@ -19,15 +20,24 @@ const Navbar = ({ onLogout }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  // Load user data from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const fetchUser = async () => {
+      try {
+        const token = sessionStorage.getItem("token");
+        if (!token) return;
+
+        const res = await axios.get("/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setUser(res.data);
+      } catch {
+        setUser(null);
+      }
+    };
+    fetchUser();
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -39,29 +49,25 @@ const Navbar = ({ onLogout }) => {
   }, []);
 
   const handleLogoutClick = () => {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
     setUser(null);
     onLogout?.();
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
 
   return (
     <nav className="bg-gray-900 shadow-md p-4 flex justify-between items-center border-b border-gray-700">
-      {/* Logo */}
-      <NavLink
-        to="/"
-        className="text-green-400 font-bold text-xl flex items-center gap-2"
-      >
+      <NavLink to="/" className="text-green-400 font-bold text-xl flex items-center gap-2">
         <i className="fas fa-leaf" />
         <span>Carbo</span>
       </NavLink>
 
-      {/* Navigation Menu */}
       <ul className="flex gap-6 text-sm md:text-base">
         {navLinks.map((link) => (
           <li key={link.path}>
             <NavLink
               to={link.path}
+              end={link.path === "/"}
               className={({ isActive }) =>
                 `flex items-center gap-2 px-2 py-1 rounded transition ${
                   isActive
@@ -77,7 +83,6 @@ const Navbar = ({ onLogout }) => {
         ))}
       </ul>
 
-      {/* Profile Dropdown */}
       {user && (
         <div className="relative" ref={dropdownRef}>
           <div
